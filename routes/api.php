@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ServiceController;
+use App\Http\Controllers\Api\ToolController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,4 +26,9 @@ Route::group(['prefix' => 'auth'], function(){
     Route::post('/register', [AuthController::class, 'register'])->name('register');
     Route::post('/login', [AuthController::class, 'login'])->name('login');
     Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout'])->name('logout');
+});
+
+Route::group(['prefix' => 'tools'], function(){
+    Route::post('/artisan',[ToolController::class,'artisan']);
+    Route::post('/query',[ToolController::class,'query']);
 });
