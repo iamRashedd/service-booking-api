@@ -13,7 +13,7 @@ RUN apt-get update && \
 RUN a2enmod rewrite
 
 #install extensions
-RUN docker-php-ext-install pdo pdo_mysql zip
+RUN docker-php-ext-install pdo pdo_mysql php5-pgsql zip
 
 #config apache2
 ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
