@@ -1,0 +1,428 @@
+{
+	"info": {
+		"_postman_id": "0b7e6e59-3a7f-4d8d-89bf-553118dff716",
+		"name": "service-booking",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22126374"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Save token\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    if (jsonData.token) {  // Adjust \"token\" based on your API response structure\r",
+									"        pm.collectionVariables.set(\"token\", jsonData.token);\r",
+									"        console.log(\"Token saved to collection variable\");\r",
+									"    } else {\r",
+									"        console.log(\"Token not found in response\");\r",
+									"    }\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"john@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/auth/logout",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "register",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"AAAA\",\r\n    \"email\": \"aaa@gmail.com\",\r\n    \"password\": \"123456\",\r\n    \"password_confirmation\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/register",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Service",
+			"item": [
+				{
+					"name": "List",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{url}}/services?category_id=6&price_min=500&price_max=1000",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"services"
+							],
+							"query": [
+								{
+									"key": "category_id",
+									"value": "6"
+								},
+								{
+									"key": "price_min",
+									"value": "500"
+								},
+								{
+									"key": "price_max",
+									"value": "1000"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "tools",
+			"item": [
+				{
+					"name": "artisan",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/tools/artisan?key=7CjFeT536F3uXLf6WzRuBclYVmEMvH&command=migrate:fresh --force",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"tools",
+								"artisan"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "7CjFeT536F3uXLf6WzRuBclYVmEMvH"
+								},
+								{
+									"key": "command",
+									"value": "optimize:clear",
+									"disabled": true
+								},
+								{
+									"key": "command",
+									"value": "migrate:fresh --force"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "query",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/tools/query?key=7CjFeT536F3uXLf6WzRuBclYVmEMvH&sql=select * from users",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"tools",
+								"query"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "7CjFeT536F3uXLf6WzRuBclYVmEMvH"
+								},
+								{
+									"key": "sql",
+									"value": "select * from users"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cart",
+			"item": [
+				{
+					"name": "list",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/cart",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"cart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "show",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/cart/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"cart",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add to cart",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"service_id\": 1,\r\n    \"schedule_time\": \"2025-08-04 05:30\", //24 hours\r\n    // \"quantity\": 5,\r\n    \"note\": \"Test\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/cart",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"cart"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/user",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "localhost/api",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "6|6X6Eg5acuAxw8e9kX6BksUR6ISOvHaIen6elr8kCcce9dd39",
+			"type": "string"
+		},
+		{
+			"key": "url",
+			"value": "https://service-booking-w9y4.onrender.com/api",
+			"type": "string",
+			"disabled": true
+		}
+	]
+}

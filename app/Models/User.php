@@ -45,4 +45,8 @@ class User extends Authenticatable
         "created_at" => 'datetime:d-m-Y H:i a',
         "updated_at" => 'datetime:d-m-Y H:i a',
     ];
+
+    public function carts(){
+        return $this->hasMany(Cart::class);
+    }
 }

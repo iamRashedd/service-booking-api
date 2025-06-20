@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\ServiceController;
 use App\Http\Controllers\Api\ToolController;
 use Illuminate\Http\Request;
@@ -26,6 +27,12 @@ Route::group(['prefix' => 'auth'], function(){
     Route::post('/register', [AuthController::class, 'register'])->name('register');
     Route::post('/login', [AuthController::class, 'login'])->name('login');
     Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout'])->name('logout');
+});
+
+Route::group(['middleware' => 'auth:sanctum'], function(){
+    Route::get('/cart', [CartController::class, 'index']);
+    Route::get('/cart/{id}', [CartController::class, 'show']);
+    Route::post('/cart', [CartController::class, 'addToCart']);
 });
 
 Route::group(['prefix' => 'tools'], function(){
