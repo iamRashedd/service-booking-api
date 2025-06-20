@@ -14,7 +14,7 @@ RUN a2enmod rewrite
 
 #install extensions
 RUN docker-php-ext-install pdo pdo_mysql zip
-RUN docker-php-ext-install pdo_pgsql pgsql
+# RUN docker-php-ext-install pdo_pgsql pgsql
 
 #config apache2
 ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
