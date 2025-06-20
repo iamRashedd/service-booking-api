@@ -30,7 +30,7 @@ class CartController extends Controller
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
-    public function show($id, CartService $cs){
+    public function show($id){
         try{
             
             $cart = Cart::with('cart_items')->where('id',$id)->first();
@@ -81,4 +81,22 @@ class CartController extends Controller
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
+    // public function removeFromCart(RemoveFromCartRequest $request, CartService $cs) {
+    //     try{
+            
+    //         $cartItem = $cs->removeItem(Auth::id(), $request->validated());
+
+    //         return response()->json([
+    //             'status' => true,
+    //             'data' => $cartItem
+    //         ], Response::HTTP_CREATED);
+
+    //     } catch (\Throwable $th) {
+    //         Log::error($th);
+    //         return response()->json([
+    //             'status' => false,
+    //             'message' => $th->getMessage(),
+    //         ], Response::HTTP_INTERNAL_SERVER_ERROR);
+    //     }
+    // }
 }

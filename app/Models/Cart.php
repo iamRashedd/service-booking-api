@@ -4,12 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Cart extends Model
 {
-    use HasFactory;
-    
+    use HasFactory, SoftDeletes;
+
     protected $guarded = ['id'];
+
+    protected $appends = ['total_price'];
     
     protected $hidden = [
         'created_at',
@@ -32,6 +35,9 @@ class Cart extends Model
 
     public function cart_items(){
         return $this->hasMany(CartItem::class);
+    }
+    public function getTotalPriceAttribute(){
+        return $this->cart_items->sum('sub_total_price');
     }
 
 }

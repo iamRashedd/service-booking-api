@@ -4,12 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CartItem extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
     
     protected $guarded = ['id'];
+    
+    protected $appends = ['sub_total_price'];
     
     protected $hidden = [
         'created_at',
@@ -28,5 +31,9 @@ class CartItem extends Model
     }
     public function service(){
         return $this->belongsTo(Service::class);
+    }
+
+    public function getSubTotalPriceAttribute(){
+        return $this->service->price*$this->quantity;
     }
 }

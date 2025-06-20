@@ -2,7 +2,6 @@
 namespace App\Services;
 use App\Models\Cart;
 use App\Models\CartItem;
-use Symfony\Component\HttpFoundation\Response;
 
 class CartService {
 
@@ -23,4 +22,7 @@ class CartService {
         }
         return $cart->load('cart_items');
     }
+    // public function removeItem($user_id, $data){
+    //    //for removing item from cart
+    // }
 }
