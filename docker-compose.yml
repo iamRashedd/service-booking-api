@@ -19,7 +19,7 @@ services:
     container_name: mysql_db
     restart: always
     environment:
-      MYSQL_DATABASE: laravel
+      MYSQL_DATABASE: service_booking
       MYSQL_ROOT_PASSWORD: root
       MYSQL_PASSWORD: root
       MYSQL_USER: laravel
