@@ -25,6 +25,10 @@ class OrderItem extends Model
         "updated_at" => 'datetime:d-m-Y H:i a',
         "deleted_at" => 'datetime:d-m-Y H:i a'
     ];
+    
+    public const IN_PROGRESS = 'in-progress';
+    public const CANCELLED = 'cancelled';
+    public const COMPLETED = 'completed';
 
     public function order(){
         return $this->belongsTo(Order::class);

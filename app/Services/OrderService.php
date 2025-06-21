@@ -3,6 +3,7 @@ namespace App\Services;
 use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Order;
+use App\Models\OrderItem;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -99,6 +100,7 @@ class OrderService {
                     'schedule_time' => $i->schedule_time,
                     'quantity' => $i->quantity,
                     'note' => $i->note,
+                    'status' => OrderItem::IN_PROGRESS,
                 ]);
                 $i->delete();
             }
@@ -123,5 +125,27 @@ class OrderService {
                 'code' => 500,
             ];
         }
+    }
+    public function getHistory($user_id){
+        $this->userId = $user_id;
+        $orders = Order::with('order_items','user')->where('user_id',$user_id)->get();
+        $orders = $orders->map(function ($item){
+            return collect([
+                'id' => $item->id,
+                'ordered_at' => $item->created_at->format('Y-m-d H:i a'),
+                'ordered_by' => $item->user->name,
+                'order_statu' => $item->status,
+                'total_items' => $item->order_items->count(),
+                'total_price' => $item->total_price,
+                'services' => $item->order_items->map(function ($i){
+                    return [
+                        'name' => $i->service_name,
+                        'time' => $i->schedule_time,
+                        'status' => $i->status,
+                    ];
+                }),
+            ]);
+        });
+        return $orders;
     }
 }
