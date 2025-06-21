@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CartController;
+use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\ServiceController;
 use App\Http\Controllers\Api\ToolController;
 use Illuminate\Http\Request;
@@ -33,6 +34,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get('/cart', [CartController::class, 'index']);
     Route::get('/cart/{id}', [CartController::class, 'show']);
     Route::post('/cart', [CartController::class, 'addToCart']);
+    Route::post('/checkout', [OrderController::class, 'checkout']);
 });
 
 Route::group(['prefix' => 'tools'], function(){

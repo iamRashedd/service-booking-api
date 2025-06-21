@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Service extends Model
+class Order extends Model
 {
     use HasFactory, SoftDeletes;
 
@@ -24,11 +24,12 @@ class Service extends Model
         "deleted_at" => 'datetime:d-m-Y H:i a'
     ];
 
-    public function category(){
-        return $this->belongsTo(Category::class);
-    }
-    public function cart_items(){
-        return $this->hasMany(CartItem::class);
+    public const IN_PROGRESS = 'in-progress';
+    public const CANCELLED = 'cancelled';
+    public const COMPLETED = 'completed';
+
+    public function user(){
+        return $this->belongsTo(User::class);
     }
     public function order_items(){
         return $this->hasMany(OrderItem::class);

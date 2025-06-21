@@ -6,11 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Service extends Model
+class OrderItem extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $guarded = ['id'];
+    
+    protected $appends = ['sub_total_price'];
     
     protected $hidden = [
         'created_at',
@@ -24,13 +26,13 @@ class Service extends Model
         "deleted_at" => 'datetime:d-m-Y H:i a'
     ];
 
-    public function category(){
-        return $this->belongsTo(Category::class);
+    public function order(){
+        return $this->belongsTo(Order::class);
     }
-    public function cart_items(){
-        return $this->hasMany(CartItem::class);
+    public function service(){
+        return $this->belongsTo(Service::class);
     }
-    public function order_items(){
-        return $this->hasMany(OrderItem::class);
+    public function getSubTotalPriceAttribute(){
+        return $this->service_price*$this->quantity;
     }
 }
