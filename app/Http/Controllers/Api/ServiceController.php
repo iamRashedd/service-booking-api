@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ServiceListRequest;
 use App\Models\Service;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -13,17 +14,21 @@ class ServiceController extends Controller
     public function index(ServiceListRequest $request){
         try{
 
-            $query = Service::with('category');
-            if ($request->has('category_id')) {
-                $query->where('category_id', $request->category_id);
-            }
-            if ($request->has('price_min')) {
-                $query->where('price', '>=', $request->price_min);
-            }
-            if ($request->has('price_max')) {
-                $query->where('price', '<=', $request->price_max);
-            }
-            $services = $query->get();
+            $cacheKey = 'services_' . md5(serialize($request->all()));
+            $services = Cache::remember($cacheKey, now()->addMinutes(60), function () use ($request) {
+                
+                $query = Service::with('category');
+                if ($request->has('category_id')) {
+                    $query->where('category_id', $request->category_id);
+                }
+                if ($request->has('price_min')) {
+                    $query->where('price', '>=', $request->price_min);
+                }
+                if ($request->has('price_max')) {
+                    $query->where('price', '<=', $request->price_max);
+                }
+                return $query->get();
+            });
 
             return response()->json([
                 'status' => true,
