@@ -1,5 +1,8 @@
 <?php
 namespace App\Services;
+
+use App\Jobs\SendOrderEmail;
+use Illuminate\Support\Facades\Mail;
 use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Order;
@@ -106,6 +109,8 @@ class OrderService {
             }
             $order->load('order_items');
             DB::commit();
+            // Mail::send(new OrderConfirmation($order->id));
+            dispatch(new SendOrderEmail($order->id));
             return [
                 'response' => [
                     'status' => true,
