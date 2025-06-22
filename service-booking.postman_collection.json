@@ -198,7 +198,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/tools/artisan?key=7CjFeT536F3uXLf6WzRuBclYVmEMvH&command=migrate:fresh --force",
+							"raw": "{{url}}/tools/artisan?key=7CjFeT536F3uXLf6WzRuBclYVmEMvH&command=queue:work --once",
 							"host": [
 								"{{url}}"
 							],
@@ -218,7 +218,37 @@
 								},
 								{
 									"key": "command",
-									"value": "migrate:fresh --force"
+									"value": "migrate:fresh --force",
+									"disabled": true
+								},
+								{
+									"key": "command",
+									"value": "test",
+									"disabled": true
+								},
+								{
+									"key": "command",
+									"value": "db:seed --force",
+									"disabled": true
+								},
+								{
+									"key": "command",
+									"value": "list",
+									"disabled": true
+								},
+								{
+									"key": "command",
+									"value": "config:show sentry",
+									"disabled": true
+								},
+								{
+									"key": "command",
+									"value": "queue:work --once"
+								},
+								{
+									"key": "command",
+									"value": "vendor:publish --provider=\"Sentry\\Laravel\\ServiceProvider\" --force",
+									"disabled": true
 								}
 							]
 						}
@@ -336,7 +366,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"service_id\": 1,\r\n    \"schedule_time\": \"2025-08-04 05:30\", //24 hours\r\n    // \"quantity\": 5,\r\n    \"note\": \"Test\"\r\n}",
+							"raw": "{\r\n    \"service_id\": 2,\r\n    \"schedule_time\": \"2025-09-04 05:30\", //24 hours\r\n    // \"quantity\": 5,\r\n    \"note\": \"Test\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -479,7 +509,8 @@
 		{
 			"key": "url",
 			"value": "localhost/api",
-			"type": "string"
+			"type": "string",
+			"disabled": true
 		},
 		{
 			"key": "token",
@@ -489,8 +520,7 @@
 		{
 			"key": "url",
 			"value": "https://service-booking-w9y4.onrender.com/api",
-			"type": "string",
-			"disabled": true
+			"type": "string"
 		}
 	]
 }
