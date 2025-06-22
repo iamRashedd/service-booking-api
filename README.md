@@ -13,6 +13,10 @@
     HeidiSQL
     Git
 
+## Email Preview
+
+    ![Model](https://raw.githubusercontent.com/iamRashedd/service-booking-api/refs/heads/main/public/email_sample.png)
+
 ## Features Implemented
 - **Required Features:**
   - **Service Listing API**: Retrieve available services with filtering by category and price range. Caching implemented for improved performance.
