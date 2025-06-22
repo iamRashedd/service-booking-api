@@ -15,7 +15,7 @@
 
 ## Email Preview
 
-    ![Model](https://raw.githubusercontent.com/iamRashedd/service-booking-api/refs/heads/main/public/email_sample.png)
+![Model](https://raw.githubusercontent.com/iamRashedd/service-booking-api/refs/heads/main/public/email_sample.png)
 
 ## Features Implemented
 - **Required Features:**
